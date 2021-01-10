@@ -1,14 +1,22 @@
 import os
 import re
+<<<<<<< HEAD
 import pandas as pd
 # os.makedirs("./cleandata");
 if not os.path.exists('./cleandata'):
     os.makedirs('./cleandata')
 content = os.listdir()
+=======
+#os.makedirs("./cleandata");
+if not os.path.exists('./cleandata'):
+    os.makedirs('./cleandata')
+content=os.listdir()
+>>>>>>> 468be3cb08580423607549943477fa4d1d36fd78
 
 for item in content:
     # delete the text files and the urls files to clean the library
     # print(item)
+<<<<<<< HEAD
     if (item.find(".txt") > 0 and item != ".git"):
         print(item)
         with open("./{}".format(item), "r") as f:
@@ -44,3 +52,20 @@ for x in content:
         result=pd.concat([result,dx],axis=1)
 print(result.head())
 result.to_excel("result.xlsx")
+=======
+    if (item.find(".txt") > 0 ):
+        print(item)
+        with open("./{}".format(item),"r") as f:
+            lines=f.readlines()
+        #if (os.path.exists("./cleandata/{}".format(item))):
+        with open("./cleandata/{}".format(item),"w+") as f:
+
+            for line in lines:
+                if "10 Messungen" in line.strip("\n"):
+                    line= line[line.find("Ch"):]
+                    #print(newline)
+                # if (line.strip("\n") != "þStartfischer1 p33-6 hf8 fc6x 0.9km")
+                if ("Ch" in line.strip("\n") or "V" in line.strip("\n") ):
+                    f.write(line.replace(';',''))
+print("wer are done.... have fun!! KOMPASS-SENSOR")
+>>>>>>> 468be3cb08580423607549943477fa4d1d36fd78
