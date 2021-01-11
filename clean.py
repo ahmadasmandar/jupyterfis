@@ -2,6 +2,8 @@ import os
 import re
 import pandas as pd
 
+
+############## Read and Clean TXT files ############################
 # os.makedirs("./cleandata");
 if not os.path.exists("./cleandata"):
     os.makedirs("./cleandata")
@@ -24,9 +26,8 @@ for item in content:
                 # if (line.strip("\n") != "þStartfischer1 p33-6 hf8 fc6x 0.9km")
                 if "Ch" in line.strip("\n") or "V:" in line.strip("\n"):
                     f.write(line.replace(";", ""))
-print("we are done.... have fun!! KOMPASS-SENSOR")
 
-############################################
+####################### Extract Data from cleaned TXT files and convert it to Dataframes and Excel files#####################
 
 a = {}
 lst = {}
@@ -132,12 +133,18 @@ verhaeltnis.head()
 # deltas.to_excel("deltas.xlsx")
 # deltas.to_excel("FullData.xlsx",sheet_name='deltas')
 # new_df.to_excel("FullData.xls",sheet_name='fullData')
-with pd.ExcelWriter("FullDataAll.xlsx") as writer:
-    result.to_excel(writer, sheet_name="cleanValues")
-    # new_df.to_excel(writer, sheet_name='cleanWithVerhältnis')
-    deltas.to_excel(writer, sheet_name="deltas")
-    verhaeltnis.to_excel(writer, sheet_name="verhaeltnis")
-    new_df["spacer1"] = " "
-    new_df["spacer2"] = " "
-    merged_df = pd.merge(new_df, deltas.reset_index(), how="outer")
-    merged_df.to_excel(writer, sheet_name="FullDataAll")
+if not (dx.empty and deltas.empty and verhaeltnis.empty and new_df.empty):
+    with pd.ExcelWriter("FullDataAll.xlsx") as writer:
+        result.to_excel(writer, sheet_name="cleanValues")
+        # new_df.to_excel(writer, sheet_name='cleanWithVerhältnis')
+        deltas.to_excel(writer, sheet_name="deltas")
+        verhaeltnis.to_excel(writer, sheet_name="verhaeltnis")
+        new_df["spacer1"] = " "
+        new_df["spacer2"] = " "
+        merged_df = pd.merge(new_df, deltas.reset_index(), how="outer")
+        merged_df.to_excel(writer, sheet_name="FullDataAll")
+else:
+    print("your files are empty")
+
+print("we are done.... have fun!! KOMPASS-SENSOR")
+os.system("pause")
