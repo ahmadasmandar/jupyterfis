@@ -1,7 +1,14 @@
-import os
-import re
+# To add a new cell, type '# %%'
+# To add a new markdown cell, type '# %% [markdown]'
+# %%
 import pandas as pd
 
+# %% [markdown]
+# # Data files full clean
+
+# %%
+import os
+import re
 
 ############## Read and Clean TXT files ############################
 # os.makedirs("./cleandata");
@@ -23,12 +30,19 @@ for item in content:
                 if "10 Messungen" in line.strip("\n"):
                     line = line[line.find("Ch") :]
                     # print(newline)
-                # if (line.strip("\n") != "þStartfischer1 p33-6 hf8 fc6x 0.9km")
-                if "Ch" in line.strip("\n") or "V:" in line.strip("\n"):
+                if (
+                    "Ch" in line.strip("\n")
+                    or "VR1:" in line.strip("\n")
+                    or "VR2:" in line.strip("\n")
+                ):
                     f.write(line.replace(";", " "))
 
-####################### Extract Data from cleaned TXT files and convert it to Dataframes and Excel files#####################
+# print(content)
 
+# %% [markdown]
+# # Extract the Data and convert it to Dataframes and Excel files
+
+# %%
 import xlwt
 
 a = {}
@@ -145,5 +159,7 @@ for x in content:
             # deltas = pd.concat([deltas, df_new], axis=1)
 
 # print(ratio_std.head())
-print("we are done.... have fun!! KOMPASS-SENSOR")
-os.system("pause")
+# ratio_mean.to_excel("test.xlsx")
+
+
+# %%
