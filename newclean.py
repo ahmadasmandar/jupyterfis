@@ -1,6 +1,6 @@
-# To add a new cell, type '# %%'
-# To add a new markdown cell, type '# %% [markdown]'
+
 # %%
+import xlwt
 import pandas as pd
 
 # %% [markdown]
@@ -20,7 +20,7 @@ for item in content:
     # print(item)
 
     if item.find(".txt") > 0 and item != ".git":
-        print(item)
+        # print(item)
         with open("./{}".format(item), "r") as f:
             lines = f.readlines()
         # if (os.path.exists("./cleandata/{}".format(item))):
@@ -28,7 +28,7 @@ for item in content:
 
             for line in lines:
                 if "10 Messungen" in line.strip("\n"):
-                    line = line[line.find("Ch") :]
+                    line = line[line.find("Ch"):]
                     # print(newline)
                 if (
                     "Ch" in line.strip("\n")
@@ -43,7 +43,6 @@ for item in content:
 # # Extract the Data and convert it to Dataframes and Excel files
 
 # %%
-import xlwt
 
 a = {}
 lst = {}
@@ -56,7 +55,7 @@ deltas = pd.DataFrame()
 new_df = pd.DataFrame()
 for x in content:
     if x.find(".txt") > 0 and x != ".git":
-        # print(x)
+        print(x)
         df = pd.read_csv(
             "./cleandata/{}".format(x),
             names=["channal", "min", "max", "x", "y"],
