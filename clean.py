@@ -133,7 +133,7 @@ verhaeltnis.head()
 # deltas.to_excel("deltas.xlsx")
 # deltas.to_excel("FullData.xlsx",sheet_name='deltas')
 # new_df.to_excel("FullData.xls",sheet_name='fullData')
-if not (dx.empty and deltas.empty and verhaeltnis.empty and new_df.empty):
+if not (deltas.empty and verhaeltnis.empty and new_df.empty):
     with pd.ExcelWriter("FullDataAll.xlsx") as writer:
         result.to_excel(writer, sheet_name="cleanValues")
         # new_df.to_excel(writer, sheet_name='cleanWithVerhältnis')
